@@ -1,0 +1,560 @@
+/* ─── Reset & Base ─────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #080810;
+  --bg-card: #12121e;
+  --bg-card-hover: #1a1a2e;
+  --text: #f0f0f0;
+  --text-muted: #8888a0;
+  --accent: #DC2626;
+  --accent-dim: #991b1b;
+  --green: #22c55e;
+  --red: #ef4444;
+  --border: #1e1e32;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* ─── App Container ────────────────────────────────────────── */
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 90px; /* space for bottom nav on iOS */
+}
+
+/* ─── Page Layout ──────────────────────────────────────────── */
+.page {
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-content {
+  padding: 16px;
+}
+
+/* ─── Header ───────────────────────────────────────────────── */
+.header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.header-top {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.app-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.app-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ─── Tab Bar ──────────────────────────────────────────────── */
+.tab-bar {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 8px;
+}
+
+.tab-bar::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  flex: 1;
+  min-width: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab-btn.active {
+  background: var(--accent-dim);
+  color: var(--text);
+}
+
+.tab-btn:active {
+  transform: scale(0.95);
+}
+
+.tab-icon {
+  font-size: 20px;
+}
+
+.tab-label {
+  white-space: nowrap;
+}
+
+/* ─── Cards ────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+
+.card h3 {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.card h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ─── Amounts ──────────────────────────────────────────────── */
+.amount {
+  font-size: 28px;
+  font-weight: 800;
+  display: block;
+  margin: 4px 0;
+}
+
+.amount.positive { color: var(--green); }
+.amount.negative { color: var(--red); }
+
+/* ─── Progress Bar ─────────────────────────────────────────── */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.danger {
+  background: var(--red);
+}
+
+/* ─── Forms ────────────────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 16px;
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.checkbox-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-label input {
+  width: auto;
+}
+
+/* ─── Buttons ──────────────────────────────────────────────── */
+.btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: var(--accent-dim);
+}
+
+.btn.small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.btn.danger {
+  background: transparent;
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.btn.large {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Section Header ───────────────────────────────────────── */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.section-header h2 {
+  font-size: 20px;
+}
+
+/* ─── Empty State ──────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+}
+
+/* ─── Debt Item ────────────────────────────────────────────── */
+.debt-header, .bill-header, .budget-header, .goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.debt-type {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.debt-details, .bill-details {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.payment-row, .spend-row, .contribute-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.payment-row input, .spend-row input, .contribute-row input {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 14px;
+}
+
+/* ─── Bill Item ────────────────────────────────────────────── */
+.bill-item.paid {
+  opacity: 0.5;
+}
+
+.bill-item.paid h4 {
+  text-decoration: line-through;
+}
+
+.bill-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.bill-category {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* ─── Budget ───────────────────────────────────────────────── */
+.budget-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.budget-summary > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.budget-item.over {
+  border-color: var(--red);
+}
+
+.budget-numbers, .goal-numbers {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.text-danger {
+  color: var(--red);
+  font-size: 12px;
+}
+
+.text-muted {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ─── Challenge ────────────────────────────────────────────── */
+.challenge-list {
+  list-style: none;
+}
+
+.challenge-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.challenge-list li:last-child {
+  border-bottom: none;
+}
+
+.challenge-list li.completed {
+  opacity: 0.6;
+}
+
+.challenge-info {
+  flex: 1;
+}
+
+.challenge-info strong {
+  font-size: 15px;
+}
+
+.challenge-info p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 2px 0;
+}
+
+.xp-badge {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.checkmark {
+  font-size: 20px;
+}
+
+/* ─── Notes ────────────────────────────────────────────────── */
+.note-input textarea {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.note-item {
+  padding: 12px 16px;
+}
+
+.note-text {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+}
+
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-date {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.note-actions {
+  display: flex;
+  gap: 4px;
+}
+
+/* ─── Setup Page ───────────────────────────────────────────── */
+.setup-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.setup-card {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.setup-card h1 {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.setup-card h2 {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.setup-card form {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.setup-card .btn {
+  margin-top: 8px;
+}
+
+/* ─── Greeting ─────────────────────────────────────────────── */
+.greeting {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* ─── Misc ─────────────────────────────────────────────────── */
+.bill-list {
+  list-style: none;
+}
+
+.bill-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.bill-list li:last-child {
+  border-bottom: none;
+}
+
+.due-date {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ─── iOS Safe Area ────────────────────────────────────────── */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .header {
+    padding-top: calc(12px + env(safe-area-inset-top));
+  }
+  .app {
+    padding-bottom: calc(90px + env(safe-area-inset-bottom));
+  }
+}
