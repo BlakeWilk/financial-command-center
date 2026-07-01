@@ -9,6 +9,7 @@ const initialSetup = {
   name: '',
   monthlyIncome: 0,
   payday: '',
+  payFrequency: 'monthly',
 };
 
 const initialChallenge = {
