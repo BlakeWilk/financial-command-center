@@ -7,7 +7,18 @@ export default function Setup() {
     name: setup.name || '',
     monthlyIncome: setup.monthlyIncome || '',
     payday: setup.payday || '1',
+    payFrequency: setup.payFrequency || 'monthly',
   });
+
+  const frequencyMultiplier = {
+    weekly: 4.33,
+    'bi-weekly': 2.17,
+    monthly: 1,
+  };
+
+  const calculatedMonthly = form.monthlyIncome
+    ? parseFloat(form.monthlyIncome) * frequencyMultiplier[form.payFrequency]
+    : 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,8 +26,9 @@ export default function Setup() {
       step: 1,
       completed: true,
       name: form.name,
-      monthlyIncome: parseFloat(form.monthlyIncome) || 0,
+      monthlyIncome: calculatedMonthly,
       payday: form.payday,
+      payFrequency: form.payFrequency,
     });
   };
 
@@ -38,17 +50,45 @@ export default function Setup() {
             />
           </label>
 
+          {/* ─── Pay Frequency Toggle ─────────────────────────── */}
+          <label>Pay Frequency</label>
+          <div className="toggle-group">
+            {['weekly', 'bi-weekly', 'monthly'].map(freq => (
+              <button
+                key={freq}
+                type="button"
+                className={`toggle-btn ${form.payFrequency === freq ? 'active' : ''}`}
+                onClick={() => setForm({ ...form, payFrequency: freq })}
+              >
+                {freq === 'bi-weekly' ? 'Bi-Weekly' : freq.charAt(0).toUpperCase() + freq.slice(1)}
+              </button>
+            ))}
+          </div>
+
+          {/* ─── Dynamic Income Label ─────────────────────────── */}
           <label>
-            Monthly Take-Home Income
+            {form.payFrequency === 'weekly'
+              ? 'Weekly Take-Home Income'
+              : form.payFrequency === 'bi-weekly'
+              ? 'Bi-Weekly Take-Home Income'
+              : 'Monthly Take-Home Income'}
             <input
               type="number"
               placeholder="e.g. 4000"
               min="0"
+              step="0.01"
               value={form.monthlyIncome}
               onChange={e => setForm({ ...form, monthlyIncome: e.target.value })}
               required
             />
           </label>
+
+          {/* ─── Show monthly equivalent ─────────────────────── */}
+          {form.monthlyIncome && form.payFrequency !== 'monthly' && (
+            <p className="monthly-equivalent">
+              ≈ ${calculatedMonthly.toFixed(2)} / month
+            </p>
+          )}
 
           <label>
             Payday (day of month)
