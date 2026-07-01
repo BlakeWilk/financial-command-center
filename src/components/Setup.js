@@ -51,18 +51,31 @@ export default function Setup() {
           </label>
 
           {/* ─── Pay Frequency Toggle ─────────────────────────── */}
-          <label>Pay Frequency</label>
-          <div className="toggle-group">
-            {['weekly', 'bi-weekly', 'monthly'].map(freq => (
+          <div className="pay-frequency-toggle">
+            <label>Pay Frequency</label>
+            <div className="toggle-group">
               <button
-                key={freq}
                 type="button"
-                className={`toggle-btn ${form.payFrequency === freq ? 'active' : ''}`}
-                onClick={() => setForm({ ...form, payFrequency: freq })}
+                className={`toggle-btn ${form.payFrequency === 'weekly' ? 'active' : ''}`}
+                onClick={() => setForm({ ...form, payFrequency: 'weekly' })}
               >
-                {freq === 'bi-weekly' ? 'Bi-Weekly' : freq.charAt(0).toUpperCase() + freq.slice(1)}
+                Weekly
               </button>
-            ))}
+              <button
+                type="button"
+                className={`toggle-btn ${form.payFrequency === 'bi-weekly' ? 'active' : ''}`}
+                onClick={() => setForm({ ...form, payFrequency: 'bi-weekly' })}
+              >
+                Bi-Weekly
+              </button>
+              <button
+                type="button"
+                className={`toggle-btn ${form.payFrequency === 'monthly' ? 'active' : ''}`}
+                onClick={() => setForm({ ...form, payFrequency: 'monthly' })}
+              >
+                Monthly
+              </button>
+            </div>
           </div>
 
           {/* ─── Dynamic Income Label ─────────────────────────── */}
@@ -83,7 +96,7 @@ export default function Setup() {
             />
           </label>
 
-          {/* ─── Show monthly equivalent ─────────────────────── */}
+          {/* ─── Monthly equivalent hint ──────────────────────── */}
           {form.monthlyIncome && form.payFrequency !== 'monthly' && (
             <p className="monthly-equivalent">
               ≈ ${calculatedMonthly.toFixed(2)} / month
